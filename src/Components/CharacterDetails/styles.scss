@@ -1,0 +1,67 @@
+$class: "char-details";
+
+.#{$class} {
+  &-profile-img {
+    border-radius: 50%;
+    margin-left: 20px;
+    width: 200px;
+  }
+}
+
+.grid-template-columns {
+  grid-template-columns: repeat(1, 1fr);
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.grid {
+  display: grid;
+}
+
+.title {
+  border-bottom: 1px solid #ccc;
+  margin: 10px;
+  text-transform: uppercase;
+  color: rgb(134, 142, 150);
+  cursor: default;
+}
+
+.title:hover {
+  cursor: pointer;
+}
+
+.series-section {
+  margin-bottom: 20px;
+}
+
+.character-bar {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0 1.5rem;
+  height: 3rem;
+  border-bottom: 1px solid #ced4da;
+  background-color: #fff;
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+
+.character-id {
+    display: flex;
+    align-items: center;
+}
+
+.character-profile {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.character-description {
+    text-align: left;
+    color: #495057;
+    padding: 30px;
+}

@@ -1,0 +1,108 @@
+$border-radius-size: 10px;
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.cardContainer {
+  z-index: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.loader {
+  margin-top: 20px;
+  flex: 1 1 100%; 
+}
+
+.cardWrapper {
+  background: white;
+  width: 180px;
+  border-radius: $border-radius-size + 5;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px black;
+  transition: transform 0.2s;
+  margin: 15px;
+  
+}
+
+.cardWrapper:hover {
+  transform: scale(1.05);
+}
+
+a {
+  text-decoration: none;
+}
+
+.card-image {
+  position: relative;
+  height: 140px;
+  background-size: cover;
+
+  border-top-left-radius: $border-radius-size;
+  border-top-right-radius: $border-radius-size;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+
+.card-name {
+  font-size: 18px;
+  color: black;
+  padding: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.card-units {
+  background: #E62429;
+  
+  color: white;
+  font-weight: 600;
+  border-bottom-left-radius: $border-radius-size;
+  border-bottom-right-radius: $border-radius-size;
+
+  .one-third {
+    border-right: 1px solid #BD7C2F;
+    width: 50%;
+    float: left;
+    padding: 5px;
+  }
+  
+  .stat {
+    font-size: 16px;
+  }
+  
+  .stat-value {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 8px;
+  }
+
+  .no-border {
+    border-right: none;
+  }
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
