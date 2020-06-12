@@ -21,21 +21,18 @@ export default class MarvelApi {
       params = params.concat(`&nameStartsWith=${options.nameStartsWith}`);
     }
     const url = `${config.baseUrl}${URI}${params}`;
-    console.log("url", url);
-    this.counter++;
-    if (this.counter <= 100) return fetch(url);
-    else return null;
+
+    return fetch(url);
   }
 
   static fetchStoriesByCharacter(characterId, page) {
     const count = 10;
-    const currentOffset =
-      page === 1 ? 0 : count * (page - 1);
+    const currentOffset = page === 1 ? 0 : count * (page - 1);
 
     const URI = `/v1/public/characters/${characterId}/series`;
     const params = `${this.getBaseParams()}&limit=${count}&offset=${currentOffset}`;
     const url = `${config.baseUrl}${URI}${params}`;
-    console.log('url', url);
+    console.log("url", url);
     return fetch(url);
   }
 

@@ -1,67 +1,61 @@
+@import "../utils/Theme/Theme.scss";
+
 $class: "char-details";
 
 .#{$class} {
-  &-profile-img {
+  &__image {
     border-radius: 50%;
-    margin-left: 20px;
+    margin: 10px;
     width: 200px;
+
+    @media (min-width: 600px) {
+      margin: 20px;
+    }
   }
-}
 
-.grid-template-columns {
-  grid-template-columns: repeat(1, 1fr);
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.grid {
-  display: grid;
-}
-
-.title {
-  border-bottom: 1px solid #ccc;
-  margin: 10px;
-  text-transform: uppercase;
-  color: rgb(134, 142, 150);
-  cursor: default;
-}
-
-.title:hover {
-  cursor: pointer;
-}
-
-.series-section {
-  margin-bottom: 20px;
-}
-
-.character-bar {
-  flex: 0 1 auto;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0 1.5rem;
-  height: 3rem;
-  border-bottom: 1px solid #ced4da;
-  background-color: #fff;
-  margin-bottom: 20px;
-  margin-top: -10px;
-}
-
-.character-id {
-    display: flex;
-    align-items: center;
-}
-
-.character-profile {
-    display: flex;
+  &__profile {
+    display: block;
     margin-bottom: 20px;
     align-items: center;
-}
+    background-color: $gray-4;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  
+    @media (min-width: 600px) {
+      display: flex;
+    }
+  }
 
-.character-description {
-    text-align: left;
-    color: #495057;
-    padding: 30px;
+  &__description {
+    text-align: center;
+    color: $gray-7;
+    padding: 5px 20px 10px;
+  
+    @media (min-width: 600px) {
+      text-align: left;
+      padding: 30px;
+    }
+  }
+
+  &__series {
+    &-root {
+      margin: 0px 10px 10px 10px;
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &-title {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      color: rgb(134, 142, 150);
+    }
+  }
 }

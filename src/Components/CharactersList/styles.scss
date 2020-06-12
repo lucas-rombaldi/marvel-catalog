@@ -1,0 +1,23 @@
+@import "../utils/Theme/Theme.scss";
+
+$class: "char-list";
+
+.#{$class} {
+  &__loader {
+    margin-top: 20px;
+    flex: 1 1 100%;
+  }
+
+  &__cards-container {
+    z-index: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding-bottom: 40px;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}

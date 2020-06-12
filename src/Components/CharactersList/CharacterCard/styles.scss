@@ -1,0 +1,75 @@
+@import "../../utils/Theme/Theme.scss";
+
+$class: "char-card";
+$border-radius-size: 10px;
+
+.#{$class} {
+
+  &__root {
+    width: 180px;
+    border-radius: $border-radius-size + 5;
+    text-align: center;
+    box-shadow: -1px 15px 30px -12px;
+    transition: transform 0.2s;
+    margin: 15px;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__image {
+    position: relative;
+    height: 140px;
+    background-size: cover;  
+    border-top-left-radius: $border-radius-size;
+    border-top-right-radius: $border-radius-size;
+    overflow: hidden;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &__title {
+    font-size: 18px;
+    color: black;
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__card-units {
+    background: $secondary-color;    
+    color: $white;
+    font-weight: 600;
+    border-bottom-left-radius: $border-radius-size;
+    border-bottom-right-radius: $border-radius-size;
+  
+    &--unit {
+      border-right: 1px solid #BD7C2F;
+      width: 50%;
+      float: left;
+      padding: 5px;
+
+      &-value {
+        font-size: 16px;
+      }
+
+      &-name {
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 8px;
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
+}

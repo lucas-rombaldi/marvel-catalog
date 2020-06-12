@@ -1,115 +1,198 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link, withRouter } from "react-router-dom";
-import * as marvelActions from "../../actions/marvelActions";
-import Loader from "../Loader/loader";
-import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import InfiniteScroll from "react-infinite-scroller";
-import SerieCard from "../SerieCard/SerieCard";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+
+import * as appActions from "../../actions/appActions";
+import Loader from "../utils/Loader/Loader";
+import ErrorScreen from "../utils/ErrorScreen/ErrorScreen";
+import FormDialog from "../CharacterDialog/CharacterDialog";
+import SerieCard from "./SerieCard/SerieCard";
+import InnerToolbar from "../utils/layout/InnerToolbar/InnerToolbar";
+
+import Constants from "./constants";
 import "./styles.scss";
 
 class CharacterDetails extends React.Component {
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.id = id;
-    this.props.marvelActions.fetchCharacter(id);
-    this.baseClassName = "char-details";
-    this.loadSeries(1);
+    this.props.appActions.disableToolbarFilter();
+    this.loadModel(this.id);
   }
 
-  renderSerie() {
-    if (
-      this.props.loading ||
-      !this.props.character.series ||
-      this.props.character.series.length === 0
-    )
-      return null;
+  get id() {
+    return this.props.match.params.id;
+  }
 
-    return this.props.character.series.map((serie) => (
-      <div className="item">
-        <SerieCard serie={serie} />
+  loadModel = (id) => {
+    this.props.appActions.fetchCharacter(id);
+    this.loadSeries(1);
+  };
+
+  showDialog = () => {
+    const { appActions } = this.props;
+    appActions.setDialogVisible(true);
+  };
+
+  handleCloseDialog = () => {
+    const { appActions } = this.props;
+    appActions.setDialogVisible(false);
+  };
+
+  loadSeries(page) {
+    const { appActions } = this.props;
+    appActions.fetchStoriesByCharacter(this.id, page);
+  }
+
+  handleConfirmDialog = () => {
+    const { appActions } = this.props;
+    appActions.setDialogVisible(false);
+    this.loadModel(this.id);
+  };
+
+  renderSeriesGrid = () => {
+    const { character } = this.props;
+
+    if (character.series && character.series.length > 0) {
+      return (
+        <div className={`${Constants.class}__series-grid`}>
+          {this.props.character.series.map((serie) => (
+            <SerieCard serie={serie} key={serie.id} />
+          ))}
+        </div>
+      );
+    } else {
+      return (
+        <Typography variant="button">
+          Unfortunately, no serie has been done so far!
+        </Typography>
+      );
+    }
+  };
+
+  renderLoadMoreSeries() {
+    const { character } = this.props;
+    if (character.hasMore)
+      return (
+        <Button
+          variant="contained"
+          color="primary"
+          className="backgroundColor--primary"
+          onClick={() => this.loadSeries(this.props.seriesPage + 1)}
+        >
+          Load More...
+        </Button>
+      );
+    else return null;
+  }
+
+  renderSeriesTitle() {
+    return (
+      <div className={`${Constants.class}__series-title`}>
+        <Typography variant="h6" align="left">
+          <span style={{ marginLeft: "10px" }}>Series</span>
+        </Typography>
       </div>
-    ));
+    );
+  }
+
+  renderSeries() {
+    const { character } = this.props;
+
+    if (!character.series) return null;
+
+    return (
+      <section className={`${Constants.class}__series-root`}>
+        {this.renderSeriesTitle()}
+        {this.renderSeriesGrid()}
+        {this.props.isLoading && <Loader visible />}
+        {this.renderLoadMoreSeries()}
+      </section>
+    );
+  }
+
+  renderToolbarActions = () => {
+    return (
+      <Button variant="outlined" color="primary" onClick={this.showDialog}>
+        Edit
+      </Button>
+    );
+  };
+
+  renderInnerToolbar() {
+    const { character } = this.props;
+
+    return (
+      <InnerToolbar
+        backRoute="/"
+        title={character.name}
+        renderActions={this.renderToolbarActions}
+      />
+    );
+  }
+
+  renderCharacterProfile() {
+    const { character } = this.props;
+    const image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
+
+    return (
+      <div className={`${Constants.class}__profile`}>
+        <img
+          src={image}
+          alt={character.name}
+          className={`${Constants.class}__image`}
+        />
+        <div className={`${Constants.class}__description`}>
+          <Typography variant="h5" display="block">
+            {character.name}
+          </Typography>
+          <Typography variant="overline" display="block">
+            {character.description.length > 0
+              ? character.description
+              : "NO DESCRIPTION FOR THIS HERO! CAN YOU TELL US SOMETHING ABOUT HIM/HER?"}
+          </Typography>
+        </div>
+      </div>
+    );
   }
 
   renderProfile() {
     const { character } = this.props;
 
-    let image;
-    if (character && character.thumbnail)
-      image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
-
-    if (character && character.series)
-      return (
-        <div>
-          <div className="character-bar">
-            <div className="character-id">
-              <Link to="/">
-                <ArrowBackIosIcon />
-              </Link>
-              <Typography variant="h5">
-                <span style={{ color: "#868e96", marginLeft: "5px" }}>
-                  {character.name}
-                </span>
-              </Typography>
-            </div>
-          </div>
-          <div className="character-profile">
-            <img
-              src={image}
-              alt={character.name}
-              className={`${this.baseClassName}-profile-img`}
-            />
-            <div className="character-description">
-              <Typography variant="overline" display="block">
-                {character.description.length > 0 ? character.description : 'NO DESCRIPTION FOR THIS HERO! CAN YOU TELL US SOMETHING ABOUT HIM/HER?'}
-              </Typography>
-            </div>
-          </div>
-        </div>
-      );
+    if (character && character.name) {
+      return this.renderCharacterProfile();
+    } else {
+      return <Loader visible />;
+    }
   }
 
-  loadSeries(page) {
-    this.props.marvelActions.fetchStoriesByCharacter(this.id, page);
+  renderDialog() {
+    return (
+      <FormDialog
+        visible={this.props.dialogVisible}
+        handleClose={this.handleCloseDialog}
+        character={this.props.character}
+        handleConfirm={this.handleConfirmDialog}
+      />
+    );
   }
 
   render() {
     const { character } = this.props;
-    console.log("this.props.seriesPage", this.props.seriesPage);
-    return character ? (
-      <div>
+
+    if (this.props.error) {
+      return <ErrorScreen message={this.props.error} />;
+    }
+
+    return character && character.name ? (
+      <React.Fragment>
+        {this.renderDialog()}
+        {this.renderInnerToolbar()}
         {this.renderProfile()}
-        {character.id && (
-          <section className="series-section">
-            <div className="title" onClick={() => alert("hello")}>
-              <Typography variant="h6" align="left">
-                <span style={{ marginLeft: "10px" }}>Series</span>
-              </Typography>
-            </div>
-            <div className="grid grid-template-columns">
-              {this.renderSerie()}
-            </div>
-            {this.props.isLoading && <Loader visible />}
-            {character.hasMore && (
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ backgroundColor: "#1976d2" }}
-                onClick={() => this.loadSeries(this.props.seriesPage + 1)}
-              >
-                Load More...
-              </Button>
-            )}
-          </section>
-        )}
-      </div>
+        {this.renderSeries()}
+      </React.Fragment>
     ) : (
       <Loader visible />
     );
@@ -120,21 +203,25 @@ CharacterDetails.propTypes = {
   character: PropTypes.object,
   isLoading: PropTypes.bool,
   seriesPage: PropTypes.number,
+  dialogVisible: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 function mapStateToProps(state) {
   return {
     character: state.marvel.character,
     isLoading: state.marvel.isLoading,
+    error: state.marvel.error,
     seriesPage: state.marvel.character
       ? state.marvel.character.seriesPage
       : this.currentSeriesPage,
+    dialogVisible: state.marvel.dialogVisible,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    marvelActions: bindActionCreators(marvelActions, dispatch),
+    appActions: bindActionCreators(appActions, dispatch),
   };
 }
 

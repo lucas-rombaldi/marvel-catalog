@@ -1,0 +1,47 @@
+@import "../../utils/Theme/Theme.scss";
+
+$class: "serie-card";
+
+.#{$class} {
+  &__root {
+    display: flex;
+    margin: 10px;
+    border-radius: 4px;
+    background-color: $gray-4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.2s;
+
+    &:hover {
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25),
+        0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+  }
+
+  &__image {
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    cursor: pointer;
+    border-radius: 4px 0px 0px 4px;
+  }
+
+  &__info {
+    flex: 1;
+    padding: 0px 10px;
+    text-align: left;
+
+    &--description {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      color: $gray-6;
+    }
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none; /* no underline */
+}

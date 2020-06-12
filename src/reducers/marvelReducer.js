@@ -1,93 +1,83 @@
 import {
-  LOAD_ALL_CHARACTERS,
+  FETCH_ALL_CHARACTERS,
   RECEIVE_ALL_CHARACTERS,
-  LOAD_CHARACTER,
+  FETCH_CHARACTER,
   RECEIVE_CHARACTER,
   SET_FILTER,
   ENABLE_FILTER,
   DISABLE_FILTER,
   FETCH_SERIES_BY_CHARACTER,
   RECEIVE_SERIES_BY_CHARACTER,
-  HIDE_SERIES,
-  SHOW_SERIES
-} from "../actions/actionTypes";
+  SET_DIALOG_VISIBLE,
+  RESET_CHARACTERS,
+} from "../actions/types";
 
 const INITIAL_STATE = {
   characters: null,
   character: null,
   hasMore: true,
   isLoading: false,
+  dialogVisible: false,
+  error: null,
 };
 
-export default function marvel(state = INITIAL_STATE, action) {
+export default function reducer(state = INITIAL_STATE, action) {
   let newState;
+
   switch (action.type) {
-    case SHOW_SERIES:
-      newState = {
-        ...state,
-        showSeries: true,
-      };
-      return newState;
-    case HIDE_SERIES:
-      newState = {
-        ...state,
-        showSeries: false,
-      };
-      return newState;
-    case ENABLE_FILTER:
-      newState = {
-        ...state,
-        enableFilter: true,
-      };
-      return newState;
-    case DISABLE_FILTER:
-      newState = {
-        ...state,
-        enableFilter: false,
-      };
-      return newState;
-    case SET_FILTER:
-      newState = {
-        ...state,
-        characters: null,
-        filter: action.filter,
-        isChangingFilter: true,
-        hasMore: true,
-      };
-      return newState;
-    case LOAD_ALL_CHARACTERS:
+    case FETCH_ALL_CHARACTERS:
       newState = {
         ...state,
         isLoading: true,
         isChangingFilter: false,
+        error: null,
       };
       return newState;
+
     case RECEIVE_ALL_CHARACTERS:
       let actionResults = action.payload.data.results;
       if (state.characters && state.characters.some((x) => x)) {
         actionResults = state.characters.concat(actionResults);
       }
 
-      const { total, count, offset } = action.payload.data;
-
       newState = {
         ...state,
         characters: actionResults.sort((a, b) =>
           a.name < b.name ? -1 : a.name > b.name ? 1 : 0
         ),
-        hasMore: total > count && offset < total,
+        hasMore: hasMore(action.payload.data),
         isLoading: false,
         isChangingFilter: false,
+        error:
+          actionResults && actionResults.length === 0
+            ? "No hero found! Try searching again..."
+            : null,
       };
+
+      // Merges characters with local data
+      for (let index = 0; index < newState.characters.length; index++) {
+        const character = newState.characters[index];
+        let localChar = localStorage.getItem(
+          `marvel-catalog.character.${character.id}`
+        );
+        if (localChar) {
+          let currentCharacter = newState.characters[index];
+          newState.characters[index] = JSON.parse(localChar);
+          newState.characters[index].series = currentCharacter.series;
+        }
+      }
+
       return newState;
-    case LOAD_CHARACTER:
-      newState = {
+
+    case FETCH_CHARACTER:
+      return {
         ...state,
         character: {},
         isLoading: true,
         isChangingFilter: false,
+        error: null,
       };
-      return newState;
+
     case RECEIVE_CHARACTER:
       newState = {
         ...state,
@@ -97,16 +87,29 @@ export default function marvel(state = INITIAL_STATE, action) {
       };
       newState.character.series = null;
       return newState;
+
     case FETCH_SERIES_BY_CHARACTER:
-      newState = {
+      return {
         ...state,
-        isLoading: true
+        isLoading: true,
       };
-      return newState;
+
     case RECEIVE_SERIES_BY_CHARACTER:
+      if (action.payload.code !== "200" && action.payload.code !== 200) {
+        newState = {
+          ...state,
+          error: `Sorry! There was an error retrieving the series (${action.payload.status})`,
+        };
+        return newState;
+      }
+
       let newSeries = action.payload.data.results;
 
-      if (state.character && state.character.series && state.character.series.some((x) => x)) {
+      if (
+        state.character &&
+        state.character.series &&
+        state.character.series.some((x) => x)
+      ) {
         newSeries = state.character.series.concat(newSeries);
       }
 
@@ -116,12 +119,48 @@ export default function marvel(state = INITIAL_STATE, action) {
           ...state.character,
           series: newSeries,
           hasMore: hasMore(action.payload.data),
-          seriesPage: action.page
+          seriesPage: action.page,
         },
-        isLoading: false
-      };      
+        isLoading: false,
+        error: null,
+      };
 
       return newState;
+
+    case RESET_CHARACTERS:
+      return {
+        ...state,
+        characters: null,
+        hasMore: true,
+      };
+
+    case SET_DIALOG_VISIBLE:
+      return {
+        ...state,
+        dialogVisible: action.visible,
+      };
+
+    case ENABLE_FILTER:
+      return {
+        ...state,
+        enableFilter: true,
+      };
+
+    case DISABLE_FILTER:
+      return {
+        ...state,
+        enableFilter: false,
+      };
+
+    case SET_FILTER:
+      return {
+        ...state,
+        characters: null,
+        filter: action.filter,
+        isChangingFilter: true,
+        hasMore: true,
+      };
+
     default:
       return state;
   }

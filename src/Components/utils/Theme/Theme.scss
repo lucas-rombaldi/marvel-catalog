@@ -1,0 +1,36 @@
+$primary-color: #1976d2;
+$secondary-color: #e62429;
+
+$white: #fff;
+$gray-4: #f5f5f5;
+$gray-5: #adb5bd;
+$gray-6: #868e96;
+$gray-7: #495057;
+
+.backgroundColor {
+  &--primary {
+    background-color: $primary-color;
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.no-border-right {
+  border-right: none;
+}
+
+:export {
+  primaryColor: $primary-color;
+  secondaryColor: $secondary-color;
+}

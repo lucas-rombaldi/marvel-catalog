@@ -1,0 +1,31 @@
+@import "../../Theme/theme.scss";
+
+$class: "inner-toolbar";
+
+.#{$class} {
+  &__root {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+    height: 3.5rem;
+    border-bottom: 1px solid #ced4da;
+    background-color: #fff;
+    margin-top: -10px;
+  }
+
+  &__title {
+    color: $gray-5;
+    margin-left: "5px";
+  }
+
+  &__actions {
+    margin-left: auto;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+}
