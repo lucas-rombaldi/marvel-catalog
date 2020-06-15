@@ -17,7 +17,7 @@ class CharactersList extends React.Component {
     this.props.appActions.resetCharacters();
   }
 
-  renderCharacters() {
+  renderCharacters = () => {
     if (
       this.props.loading ||
       !this.props.characters ||

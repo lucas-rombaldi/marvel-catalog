@@ -42,7 +42,7 @@ class CharacterDetails extends React.Component {
     appActions.setDialogVisible(false);
   };
 
-  loadSeries(page) {
+  loadSeries = (page) => {
     const { appActions } = this.props;
     appActions.fetchSeriesByCharacter(this.id, page);
   }
@@ -73,7 +73,7 @@ class CharacterDetails extends React.Component {
     }
   };
 
-  renderLoadMoreSeriesButton() {
+  renderLoadMoreSeriesButton = () => {
     const { character, seriesPage } = this.props;
 
     if (character.hasMore)
@@ -90,7 +90,7 @@ class CharacterDetails extends React.Component {
     else return null;
   }
 
-  renderSeriesTitle() {
+  renderSeriesTitle = () => {
     return (
       <div className={`${Constants.class}__series-title`}>
         <Typography variant="h6" align="left">
@@ -100,7 +100,7 @@ class CharacterDetails extends React.Component {
     );
   }
 
-  renderSeries() {
+  renderSeries = () => {
     const { character, isLoadingSeries } = this.props;
 
     return (
@@ -130,7 +130,7 @@ class CharacterDetails extends React.Component {
     );
   };
 
-  renderProfile() {
+  renderProfile = () => {
     const { character } = this.props;
     const image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
 
@@ -155,7 +155,7 @@ class CharacterDetails extends React.Component {
     );
   }
 
-  renderDialog() {
+  renderDialog = () => {
     return (
       <CharacterDialog
         visible={this.props.dialogVisible}
@@ -166,7 +166,7 @@ class CharacterDetails extends React.Component {
     );
   }
 
-  renderPage() {
+  renderPage = () => {
     const { character } = this.props;
 
     return (

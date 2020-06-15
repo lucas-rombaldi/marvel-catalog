@@ -34,7 +34,7 @@ class TopBar extends React.Component {
     this.handleFilterChangeDebounce();
   };
 
-  renderSearch() {
+  renderSearch = () => {
     const { enableFilter } = this.props;
 
     if (!enableFilter) return null;
@@ -59,7 +59,7 @@ class TopBar extends React.Component {
     );
   }
 
-  renderAppTitle() {
+  renderAppTitle = () => {
     return (
       <React.Fragment>
         <img

@@ -8,7 +8,7 @@ import Constants from "./constants";
 import "./styles.scss";
 
 class InnerToolbar extends React.Component {
-  _renderActions() {
+  renderActions = () => {
     const { renderActions } = this.props;
 
     if (renderActions) {
@@ -18,7 +18,7 @@ class InnerToolbar extends React.Component {
     } else return null;
   }
 
-  _renderInfo() {
+  renderInfo = () => {
     const { backRoute, title } = this.props;
 
     return (
@@ -38,8 +38,8 @@ class InnerToolbar extends React.Component {
   _renderInnerToolbar() {
     return (
       <div className={`${Constants.class}__root`}>
-        {this._renderInfo()}
-        {this._renderActions()}
+        {this.renderInfo()}
+        {this.renderActions()}
       </div>
     );
   }

@@ -1,4 +1,4 @@
-![Marvel](./img/marvel.logo.png)
+![Marvel](img/marvel.logo.png)
 
 ## Available Scripts
 
