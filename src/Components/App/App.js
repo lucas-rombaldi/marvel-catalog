@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import red from "@material-ui/core/colors/red";
 import CharactersList from "../CharactersList/CharactersList";
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
 import TopBar from "../utils/layout/TopBar/TopBar";
