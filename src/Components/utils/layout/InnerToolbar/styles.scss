@@ -4,8 +4,10 @@ $class: "inner-toolbar";
 
 .#{$class} {
   &__root {
-    flex: 0 1 auto;
+    position: fixed;
+    z-index: 999;
     display: flex;
+    flex: 0 1 auto;
     align-items: center;
     width: 100%;
     padding: 0 1rem;
@@ -27,5 +29,10 @@ $class: "inner-toolbar";
   &__info {
     display: flex;
     align-items: center;
+  }
+
+  &__content {
+    position: absolute;
+    margin-top: 3rem;
   }
 }

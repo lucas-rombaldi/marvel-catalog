@@ -121,18 +121,6 @@ class CharacterDetails extends React.Component {
     );
   };
 
-  renderInnerToolbar() {
-    const { character } = this.props;
-
-    return (
-      <InnerToolbar
-        backRoute="/"
-        title={character.name}
-        renderActions={this.renderToolbarActions}
-      />
-    );
-  }
-
   renderCharacterProfile() {
     const { character } = this.props;
     const image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
@@ -189,9 +177,16 @@ class CharacterDetails extends React.Component {
     return character && character.name ? (
       <React.Fragment>
         {this.renderDialog()}
-        {this.renderInnerToolbar()}
-        {this.renderProfile()}
-        {this.renderSeries()}
+        <InnerToolbar
+          backRoute="/"
+          title={character.name}
+          renderActions={this.renderToolbarActions}
+        >
+          <React.Fragment>
+            {this.renderProfile()}
+            {this.renderSeries()}
+          </React.Fragment>
+        </InnerToolbar>
       </React.Fragment>
     ) : (
       <Loader visible />

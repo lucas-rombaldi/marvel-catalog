@@ -21,7 +21,7 @@ $class: "char-dialog";
     }
 
     &__error-text {
-        color: rgb(244, 67, 54);
+        color: $error-color;
         margin: -3px 0px 3px 0px;
         font-size: 0.75rem;
         text-align: left;

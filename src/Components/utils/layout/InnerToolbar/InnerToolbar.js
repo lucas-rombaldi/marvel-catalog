@@ -35,7 +35,7 @@ class InnerToolbar extends React.Component {
     );
   }
 
-  render() {
+  _renderInnerToolbar() {
     return (
       <div className={`${Constants.class}__root`}>
         {this._renderInfo()}
@@ -43,9 +43,25 @@ class InnerToolbar extends React.Component {
       </div>
     );
   }
+
+  _renderContent() {
+    return (
+      <div className={`${Constants.class}__content`}>{this.props.children}</div>
+    );
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        {this._renderInnerToolbar()}
+        {this._renderContent()}
+      </React.Fragment>
+    );
+  }
 }
 
 InnerToolbar.propTypes = {
+  children: PropTypes.node,
   renderActions: PropTypes.func,
   backRoute: PropTypes.string,
   title: PropTypes.string,

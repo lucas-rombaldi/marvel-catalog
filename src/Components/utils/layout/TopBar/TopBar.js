@@ -83,7 +83,7 @@ class TopBar extends React.Component {
   render() {
     return (
       <div className={`${Constants.class}__root`}>
-        <AppBar position="fixed" className={`${Constants.class}__appBar`}>
+        <AppBar position="fixed">
           <Toolbar>
             {this.renderAppTitle()}
             {this.renderSearch()}
