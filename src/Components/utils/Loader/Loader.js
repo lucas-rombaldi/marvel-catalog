@@ -1,17 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import LoaderSpinner from "react-loader-spinner";
-import Theme from '../Theme/Theme.scss';
+import Theme from '../theme/theme.scss';
 
 class Loader extends React.Component {
   render() {
+    const { type, visible } = this.props;
+
     return (
       <LoaderSpinner
-        type={this.props.type || "ThreeDots"}
+        type={type || "ThreeDots"}
         color={Theme.secondaryColor}
         height={70}
         width={70}
-        visible={this.props.visible}
+        visible={visible}
       />
     );
   }

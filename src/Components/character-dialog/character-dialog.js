@@ -5,41 +5,45 @@ import { Field, reduxForm } from "redux-form";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 
 import Constants from "./constants";
+import AppConstants from "../utils/constants";
 import "./styles.scss";
 
 class CharacterDialog extends React.Component {
   renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => {
     const errorState = Boolean(touched && error);
+
     return (
       <React.Fragment>
         <TextField
           error={errorState}
           {...input}
-          multiline={custom.multiline}
-          rows={custom.rows}
-          autoFocus={custom.autoFocus}
+          {...custom}
           label={label}
           fullWidth
           margin="dense"
           variant="outlined"
         />
         {errorState && (
-          <span className={`${Constants.class}__error-text`}>{error}</span>
+          <p className={`${Constants.class}__error-text`}>{error}</p>
         )}
       </React.Fragment>
     );
   };
 
   onSubmit = (values) => {
+    const { character, handleConfirm } = this.props;
+
     localStorage.setItem(
-      `marvel-catalog.character.${this.props.character.id}`,
+      `${AppConstants.localCharacterStoragePrefix}${character.id}`,
       JSON.stringify(values)
     );
-    this.props.handleConfirm();
+
+    handleConfirm();
   };
 
   render() {
@@ -56,12 +60,15 @@ class CharacterDialog extends React.Component {
         aria-labelledby="form-dialog-title"
       >
         <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+          <DialogTitle id="form-dialog-title">Character Edition</DialogTitle>
           <DialogContent className={`${Constants.class}__content`}>
-            <img
-              src={image}
-              alt={character.name}
-              className={`${Constants.class}__image`}
-            />
+            <div className={`${Constants.class}__row`}>
+              <img
+                src={image}
+                alt={character.name}
+                className={`${Constants.class}__image`}
+              />
+            </div>
             <Field
               name="name"
               component={this.renderTextField}
@@ -73,15 +80,17 @@ class CharacterDialog extends React.Component {
               component={this.renderTextField}
               label="Description"
               multiline
-              rows={8}
+              rows={6}
             />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.props.handleClose}>Cancel</Button>
-            <Button type="submit" variant="contained" color="primary">
-              Confirm
-            </Button>
-          </DialogActions>
+          <div className={`${Constants.class}__actions`}>
+            <DialogActions>
+              <Button onClick={this.props.handleClose}>Cancel</Button>
+              <Button type="submit" variant="contained" color="primary">
+                Confirm
+              </Button>
+            </DialogActions>
+          </div>
         </form>
       </Dialog>
     );
@@ -104,6 +113,7 @@ function validate(values) {
       errors[field] = "Required";
     }
   });
+
   return errors;
 }
 

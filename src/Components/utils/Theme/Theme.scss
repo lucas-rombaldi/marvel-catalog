@@ -29,8 +29,15 @@ $gray-7: #495057;
   height: 0;
 }
 
-.no-border-right {
-  border-right: none;
+.no-border {
+  &-right {
+    border-right: none;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 :export {

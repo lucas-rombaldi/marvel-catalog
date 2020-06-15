@@ -8,7 +8,6 @@ import "./styles.scss";
 
 class CharacterCard extends React.Component {
   render() {
-    console.log('constants', Constants);
     const { character } = this.props;
     const image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
 

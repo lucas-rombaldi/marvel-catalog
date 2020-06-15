@@ -5,15 +5,16 @@ import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import EditIcon from '@material-ui/icons/Edit';
 
 import * as appActions from "../../actions/appActions";
-import Loader from "../utils/Loader/Loader";
-import ErrorScreen from "../utils/ErrorScreen/ErrorScreen";
-import FormDialog from "../CharacterDialog/CharacterDialog";
-import SerieCard from "./SerieCard/SerieCard";
-import InnerToolbar from "../layout/InnerToolbar/InnerToolbar";
+import InnerToolbar from "../layout/inner-toolbar/inner-toolbar";
+import Loader from "../utils/loader/loader";
+import ErrorScreen from "../utils/error-screen/error-screen";
+import CharacterDialog from "../character-dialog/character-dialog";
+import SerieCard from "./serie-card/serie-card";
 
-import Constants from './constants';
+import Constants from "./constants";
 import "./styles.scss";
 
 class CharacterDetails extends React.Component {
@@ -43,7 +44,7 @@ class CharacterDetails extends React.Component {
 
   loadSeries(page) {
     const { appActions } = this.props;
-    appActions.fetchStoriesByCharacter(this.id, page);
+    appActions.fetchSeriesByCharacter(this.id, page);
   }
 
   handleConfirmDialog = () => {
@@ -72,15 +73,16 @@ class CharacterDetails extends React.Component {
     }
   };
 
-  renderLoadMoreSeries() {
-    const { character } = this.props;
+  renderLoadMoreSeriesButton() {
+    const { character, seriesPage } = this.props;
+
     if (character.hasMore)
       return (
         <Button
           variant="contained"
           color="primary"
           className="backgroundColor--primary"
-          onClick={() => this.loadSeries(this.props.seriesPage + 1)}
+          onClick={() => this.loadSeries(seriesPage + 1)}
         >
           Load More...
         </Button>
@@ -99,29 +101,36 @@ class CharacterDetails extends React.Component {
   }
 
   renderSeries() {
-    const { character } = this.props;
-
-    if (!character.series) return null;
+    const { character, isLoadingSeries } = this.props;
 
     return (
       <section className={`${Constants.class}__series-root`}>
         {this.renderSeriesTitle()}
-        {this.renderSeriesGrid()}
-        {this.props.isLoading && <Loader visible />}
-        {this.renderLoadMoreSeries()}
+        {character.series && (
+          <React.Fragment>
+            {this.renderSeriesGrid()}
+            {!isLoadingSeries && this.renderLoadMoreSeriesButton()}
+          </React.Fragment>
+        )}
+        {isLoadingSeries && <Loader visible />}
       </section>
     );
   }
 
   renderToolbarActions = () => {
     return (
-      <Button variant="outlined" color="primary" onClick={this.showDialog}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={this.showDialog}
+        endIcon={<EditIcon />}
+      >
         Edit
       </Button>
     );
   };
 
-  renderCharacterProfile() {
+  renderProfile() {
     const { character } = this.props;
     const image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
 
@@ -146,24 +155,31 @@ class CharacterDetails extends React.Component {
     );
   }
 
-  renderProfile() {
-    const { character } = this.props;
-
-    if (character && character.name) {
-      return this.renderCharacterProfile();
-    } else {
-      return <Loader visible />;
-    }
-  }
-
   renderDialog() {
     return (
-      <FormDialog
+      <CharacterDialog
         visible={this.props.dialogVisible}
         handleClose={this.handleCloseDialog}
         character={this.props.character}
         handleConfirm={this.handleConfirmDialog}
       />
+    );
+  }
+
+  renderPage() {
+    const { character } = this.props;
+
+    return (
+      <InnerToolbar
+        backRoute="/"
+        title={character.name}
+        renderActions={this.renderToolbarActions}
+      >
+        <React.Fragment>
+          {this.renderProfile()}
+          {this.renderSeries()}
+        </React.Fragment>
+      </InnerToolbar>
     );
   }
 
@@ -177,16 +193,7 @@ class CharacterDetails extends React.Component {
     return character && character.name ? (
       <React.Fragment>
         {this.renderDialog()}
-        <InnerToolbar
-          backRoute="/"
-          title={character.name}
-          renderActions={this.renderToolbarActions}
-        >
-          <React.Fragment>
-            {this.renderProfile()}
-            {this.renderSeries()}
-          </React.Fragment>
-        </InnerToolbar>
+        {this.renderPage()}
       </React.Fragment>
     ) : (
       <Loader visible />
@@ -197,6 +204,7 @@ class CharacterDetails extends React.Component {
 CharacterDetails.propTypes = {
   character: PropTypes.object,
   isLoading: PropTypes.bool,
+  isLoadingSeries: PropTypes.bool,
   seriesPage: PropTypes.number,
   dialogVisible: PropTypes.bool,
   error: PropTypes.string,
@@ -205,7 +213,8 @@ CharacterDetails.propTypes = {
 function mapStateToProps(state) {
   return {
     character: state.marvel.character,
-    isLoading: state.marvel.isLoading,
+    isLoadingSeries:
+      state.marvel.character && state.marvel.character.isLoadingSeries,
     error: state.marvel.error,
     seriesPage: state.marvel.character
       ? state.marvel.character.seriesPage

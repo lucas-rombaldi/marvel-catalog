@@ -1,4 +1,4 @@
-@import "../../utils/Theme/Theme.scss";
+@import "../../utils/theme/theme.scss";
 
 $class: "serie-card";
 
@@ -39,9 +39,4 @@ $class: "serie-card";
       color: $gray-6;
     }
   }
-}
-
-a {
-  color: inherit;
-  text-decoration: none; /* no underline */
 }

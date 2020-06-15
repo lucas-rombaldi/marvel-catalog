@@ -5,9 +5,9 @@ import { bindActionCreators } from "redux";
 import InfiniteScroll from "react-infinite-scroller";
 
 import * as appActions from "../../actions/appActions";
-import CharacterCard from "./CharacterCard/CharacterCard";
-import Loader from "../utils/Loader/Loader";
-import ErrorScreen from "../utils/ErrorScreen/ErrorScreen";
+import CharacterCard from "./character-card/character-card";
+import Loader from "../utils/loader/loader";
+import ErrorScreen from "../utils/error-screen/error-screen";
 import Constants from './constants';
 import "./styles.scss";
 
@@ -33,7 +33,7 @@ class CharactersList extends React.Component {
   }
 
   render() {
-    const { hasMore, appActions, error } = this.props;
+    const { hasMore, appActions, error, isLoading } = this.props;
     const { fetchAllCharacters } = appActions;
 
     return (
@@ -50,7 +50,7 @@ class CharactersList extends React.Component {
           hasMore={hasMore}
           loader={
             <div className={`${Constants.class}__loader`} key="loader">
-              <Loader visible={this.props.isLoading} />
+              <Loader visible={isLoading} />
             </div>
           }
         >

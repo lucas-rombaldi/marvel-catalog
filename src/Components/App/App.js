@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import CharactersList from "../CharactersList/CharactersList";
-import CharacterDetails from "../CharacterDetails/CharacterDetails";
-import TopBar from "../layout/TopBar/TopBar";
+
+import CharactersList from "../character-list/character-list";
+import CharacterDetails from "../character-details/character-details";
+import TopBar from "../layout/top-bar/top-bar";
+import Theme from "../utils/theme/theme.scss";
 import "./App.scss";
-import Theme from "../utils/Theme/Theme.scss";
 
 const theme = createMuiTheme({
   palette: {

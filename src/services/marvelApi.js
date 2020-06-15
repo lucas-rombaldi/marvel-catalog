@@ -3,10 +3,8 @@ import moment from "moment";
 import { marvelApi as config } from "../config/config";
 
 export default class MarvelApi {
-  static counter = 1;
-
   static getCharacters(origOptions = {}) {
-    const defaultOptions = { page: 0, count: 20, nameStartsWith: "" };
+    const defaultOptions = { page: 0, count: 15, nameStartsWith: "" };
     const options = Object.assign(defaultOptions, origOptions);
 
     const URI = "/v1/public/characters";
@@ -20,19 +18,20 @@ export default class MarvelApi {
     if (options.nameStartsWith) {
       params = params.concat(`&nameStartsWith=${options.nameStartsWith}`);
     }
+
     const url = `${config.baseUrl}${URI}${params}`;
 
     return fetch(url);
   }
 
-  static fetchStoriesByCharacter(characterId, page) {
+  static fetchSeriesByCharacter(characterId, page) {
     const count = 10;
     const currentOffset = page === 1 ? 0 : count * (page - 1);
 
     const URI = `/v1/public/characters/${characterId}/series`;
     const params = `${this.getBaseParams()}&limit=${count}&offset=${currentOffset}`;
     const url = `${config.baseUrl}${URI}${params}`;
-    console.log("url", url);
+    
     return fetch(url);
   }
 

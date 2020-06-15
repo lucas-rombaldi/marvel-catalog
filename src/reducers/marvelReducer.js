@@ -72,7 +72,9 @@ export default function reducer(state = INITIAL_STATE, action) {
     case FETCH_CHARACTER:
       return {
         ...state,
-        character: {},
+        character: {
+          isLoadingSeries: true
+        },
         isLoading: true,
         isChangingFilter: false,
         error: null,
@@ -85,13 +87,18 @@ export default function reducer(state = INITIAL_STATE, action) {
         isLoading: false,
         isChangingFilter: false,
       };
+      newState.character.isLoadingSeries = true;
       newState.character.series = null;
+
       return newState;
 
     case FETCH_SERIES_BY_CHARACTER:
       return {
         ...state,
-        isLoading: true,
+        character: {
+          ...state.character,
+          isLoadingSeries: true
+        }
       };
 
     case RECEIVE_SERIES_BY_CHARACTER:
@@ -120,11 +127,10 @@ export default function reducer(state = INITIAL_STATE, action) {
           series: newSeries,
           hasMore: hasMore(action.payload.data),
           seriesPage: action.page,
+          isLoadingSeries: false
         },
-        isLoading: false,
         error: null,
       };
-
       return newState;
 
     case RESET_CHARACTERS:
@@ -168,5 +174,5 @@ export default function reducer(state = INITIAL_STATE, action) {
 
 function hasMore(data) {
   const { total, count, offset } = data;
-  return total > count && offset < total;
+  return offset + count < total;
 }

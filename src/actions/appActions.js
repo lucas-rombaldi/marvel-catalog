@@ -1,5 +1,6 @@
 import * as types from "./types";
 import MarvelApi from "../services/marvelApi";
+import AppConstants from '../components/utils/constants';
 
 export function setFilter(filter) {
   return (dispatch) =>
@@ -41,7 +42,7 @@ export function fetchCharacter(id) {
   return (dispatch) => {
     dispatch({ type: types.FETCH_CHARACTER });
 
-    let localChar = localStorage.getItem(`marvel-catalog.character.${id}`);
+    let localChar = localStorage.getItem(`${AppConstants.localCharacterStoragePrefix}${id}`);
     if (localChar) {
       const localContent = {
         data: {
@@ -87,12 +88,12 @@ export function disableToolbarFilter() {
   };
 }
 
-export function fetchStoriesByCharacter(id, page) {
+export function fetchSeriesByCharacter(id, page) {
   return (dispatch) => {
     dispatch({
       type: types.FETCH_SERIES_BY_CHARACTER,
     });
-    return MarvelApi.fetchStoriesByCharacter(id, page)
+    return MarvelApi.fetchSeriesByCharacter(id, page)
       .then((response) => response.json())
       .then((json) =>
         dispatch({

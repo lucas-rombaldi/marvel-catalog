@@ -1,4 +1,4 @@
-@import "../utils/Theme/Theme.scss";
+@import "../utils/theme/theme.scss";
 
 $class: "char-dialog";
 
@@ -20,6 +20,10 @@ $class: "char-dialog";
         }
     }
 
+    &__row {
+        margin-bottom: 10px;
+    }
+
     &__error-text {
         color: $error-color;
         margin: -3px 0px 3px 0px;
@@ -29,6 +33,10 @@ $class: "char-dialog";
         line-height: 1.66;
         letter-spacing: 0.03333em;
         font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    }
+
+    &__actions {
+        padding: 0px 16px 12px 0px;
     }
 }
 
