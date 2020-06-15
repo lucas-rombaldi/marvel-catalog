@@ -11,9 +11,9 @@ import Loader from "../utils/Loader/Loader";
 import ErrorScreen from "../utils/ErrorScreen/ErrorScreen";
 import FormDialog from "../CharacterDialog/CharacterDialog";
 import SerieCard from "./SerieCard/SerieCard";
-import InnerToolbar from "../utils/layout/InnerToolbar/InnerToolbar";
+import InnerToolbar from "../layout/InnerToolbar/InnerToolbar";
 
-import Constants from "./constants";
+import Constants from './constants';
 import "./styles.scss";
 
 class CharacterDetails extends React.Component {

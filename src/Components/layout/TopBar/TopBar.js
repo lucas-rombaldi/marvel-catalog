@@ -8,9 +8,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 
-import * as appActions from "../../../../actions/appActions";
+import * as appActions from "../../../actions/appActions";
 import Constants from "./constants";
-import Logo from "../../../../img/marvel-logo.png";
+import Logo from "../../../img/marvel-logo.png";
 import "./styles.scss";
 
 class TopBar extends React.Component {

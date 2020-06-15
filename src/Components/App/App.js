@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CharactersList from "../CharactersList/CharactersList";
 import CharacterDetails from "../CharacterDetails/CharacterDetails";
-import TopBar from "../utils/layout/TopBar/TopBar";
+import TopBar from "../layout/TopBar/TopBar";
 import "./App.scss";
 import Theme from "../utils/Theme/Theme.scss";
 

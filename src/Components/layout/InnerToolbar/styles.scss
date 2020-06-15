@@ -1,4 +1,4 @@
-@import "../../Theme/theme.scss";
+@import "../../utils/Theme/Theme.scss";
 
 $class: "inner-toolbar";
 
@@ -12,14 +12,20 @@ $class: "inner-toolbar";
     width: 100%;
     padding: 0 1rem;
     height: 3.5rem;
-    border-bottom: 1px solid #ced4da;
-    background-color: #fff;
+    border-bottom: 1px solid $gray-4;
+    background-color: $white;
     margin-top: -10px;
+  }
+
+  &__content {
+    position: absolute;
+    margin-top: 3rem;
+    width: 100%;
   }
 
   &__title {
     color: $gray-5;
-    margin-left: "5px";
+    margin-left: 5px;
   }
 
   &__actions {
@@ -29,10 +35,5 @@ $class: "inner-toolbar";
   &__info {
     display: flex;
     align-items: center;
-  }
-
-  &__content {
-    position: absolute;
-    margin-top: 3rem;
   }
 }
