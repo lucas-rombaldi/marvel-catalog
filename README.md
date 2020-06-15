@@ -1,4 +1,4 @@
-![Marvel](img/marvel.logo.png)
+![Marvel](https://github.com/lucas-rombaldi/marvel-catalog/blob/master/src/img/marvel-logo.png?raw=true)
 
 ## Available Scripts
 
