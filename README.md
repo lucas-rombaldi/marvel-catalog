@@ -17,7 +17,8 @@ See a "quick" overview of this first version...
 <img src="https://github.com/lucas-rombaldi/marvel-catalog/blob/master/docs/videos/v1.0.0/marvel-catalog.gif" alt="animated"/>
 
 ### Next Versions
-As every first version, it has many mapped improvements, like:
+As every first version, it has many mapped features, like:
+- "Data Provided by Marvel" footer.
 - Automated testing.
 - Add more informations on character details page, like comics.
 - Add more editable fields/lists on characters edition dialog.
