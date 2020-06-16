@@ -2,7 +2,7 @@
 
 <img src="https://github.com/lucas-rombaldi/marvel-catalog/blob/master/src/img/marvel-logo.png?raw=true" height="200" width="400"/>
 
-This is a catalog application that brings to you all of the Marvel characters, along with many nice information, like series, comics, among others! Enjoy and contribute!
+This is a catalog application made for all Marvel fans, made in React with Redux, this app brings to you all of the Marvel characters, along with many nice information, like series, comics, among others! Enjoy and contribute!
 
 ## Release Notes
 
