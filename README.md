@@ -14,7 +14,7 @@ This is the first version of the catalog, bringing the following features:
 
 See a "quick" overview of this first version...
 
-<img src="https://github.com/lucas-rombaldi/marvel-catalog/blob/master/src/img/marvel-logo.png?raw=true" height="200" width="400"/>
+<img src="https://github.com/lucas-rombaldi/marvel-catalog/blob/master/docs/videos/v1.0.0/marvel-catalog.gif" alt="animated"/>
 
 ### Next Versions
 As every first version, it has many mapped improvements, like:
