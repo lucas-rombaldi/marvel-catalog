@@ -2,7 +2,7 @@
 
 <img src="https://github.com/lucas-rombaldi/marvel-catalog/blob/master/src/img/marvel-logo.png?raw=true" height="200" width="400"/>
 
-This is a catalog application that brings to you all of the Marvel characters, along with many nice information, like series, comics, among others!
+This is a catalog application that brings to you all of the Marvel characters, along with many nice information, like series, comics, among others! Enjoy and contribute!
 
 ## Release Notes
 
@@ -11,6 +11,10 @@ This is the first version of the catalog, bringing the following features:
 - Characters list (with search and infinite scroll for a better UX - just like Facebook)
 - Character details (just clicking on his card)
 - Character edition
+
+See a "quick" overview of this first version...
+
+<img src="https://github.com/lucas-rombaldi/marvel-catalog/blob/master/src/img/marvel-logo.png?raw=true" height="200" width="400"/>
 
 ### Next Versions
 As every first version, it has many mapped improvements, like:
