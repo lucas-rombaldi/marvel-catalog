@@ -9,3 +9,4 @@ export const SET_FILTER = 'SET_FILTER';
 export const ENABLE_FILTER = 'ENABLE_FILTER';
 export const DISABLE_FILTER = 'DISABLE_FILTER';
 export const SET_DIALOG_VISIBLE = 'SET_DIALOG_VISIBLE';
+export const ERROR = 'ERROR';

@@ -5,14 +5,14 @@ import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from "@material-ui/icons/Edit";
 
 import * as appActions from "../../actions/appActions";
-import InnerToolbar from "../layout/inner-toolbar/inner-toolbar";
-import Loader from "../utils/loader/loader";
-import ErrorScreen from "../utils/error-screen/error-screen";
-import CharacterDialog from "../character-dialog/character-dialog";
-import SerieCard from "./serie-card/serie-card";
+import InnerToolbar from "../layout/inner-toolbar";
+import Loader from "../utils/loader";
+import ErrorPage from "../utils/error-page";
+import CharacterDialog from "../character-dialog";
+import SerieCard from "./serie-card";
 
 import Constants from "./constants";
 import "./styles.scss";
@@ -45,7 +45,7 @@ class CharacterDetails extends React.Component {
   loadSeries = (page) => {
     const { appActions } = this.props;
     appActions.fetchSeriesByCharacter(this.id, page);
-  }
+  };
 
   handleConfirmDialog = () => {
     const { appActions } = this.props;
@@ -88,7 +88,7 @@ class CharacterDetails extends React.Component {
         </Button>
       );
     else return null;
-  }
+  };
 
   renderSeriesTitle = () => {
     return (
@@ -98,7 +98,7 @@ class CharacterDetails extends React.Component {
         </Typography>
       </div>
     );
-  }
+  };
 
   renderSeries = () => {
     const { character, isLoadingSeries } = this.props;
@@ -115,7 +115,7 @@ class CharacterDetails extends React.Component {
         {isLoadingSeries && <Loader visible />}
       </section>
     );
-  }
+  };
 
   renderToolbarActions = () => {
     return (
@@ -153,7 +153,7 @@ class CharacterDetails extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 
   renderDialog = () => {
     return (
@@ -164,10 +164,12 @@ class CharacterDetails extends React.Component {
         handleConfirm={this.handleConfirmDialog}
       />
     );
-  }
+  };
 
   renderPage = () => {
-    const { character } = this.props;
+    const { character, error, warning } = this.props;
+
+    if (error || warning) return <ErrorPage message={error || warning} />;
 
     return (
       <InnerToolbar
@@ -181,13 +183,13 @@ class CharacterDetails extends React.Component {
         </React.Fragment>
       </InnerToolbar>
     );
-  }
+  };
 
   render() {
     const { character } = this.props;
 
     if (this.props.error) {
-      return <ErrorScreen message={this.props.error} />;
+      return <ErrorPage message={this.props.error} />;
     }
 
     return character && character.name ? (
@@ -207,6 +209,7 @@ CharacterDetails.propTypes = {
   isLoadingSeries: PropTypes.bool,
   seriesPage: PropTypes.number,
   dialogVisible: PropTypes.bool,
+  warning: PropTypes.string,
   error: PropTypes.string,
 };
 
@@ -216,6 +219,7 @@ function mapStateToProps(state) {
     isLoadingSeries:
       state.marvel.character && state.marvel.character.isLoadingSeries,
     error: state.marvel.error,
+    warning: state.marvel.warning,
     seriesPage: state.marvel.character
       ? state.marvel.character.seriesPage
       : this.currentSeriesPage,

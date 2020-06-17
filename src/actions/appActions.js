@@ -1,6 +1,6 @@
 import * as types from "./types";
 import MarvelApi from "../services/marvelApi";
-import AppConstants from '../components/utils/constants';
+import AppConstants from "../components/utils/constants";
 
 export function setFilter(filter) {
   return (dispatch) =>
@@ -21,47 +21,64 @@ export function setDialogVisible(visible) {
 
 export function fetchAllCharacters(page, filter) {
   return async (dispatch) => {
-    dispatch({
-      type: types.FETCH_ALL_CHARACTERS,
-      isLoading: true,
-    });
+    dispatch(fetchAllCharactersDispatcher());
 
-    const response = await MarvelApi.getCharacters({
-      page: page,
-      nameStartsWith: filter,
-    });
-    const json = await response.json();
-    return dispatch({
-      type: types.RECEIVE_ALL_CHARACTERS,
-      payload: json,
-    });
+    try {
+      const response = await MarvelApi.getCharacters({
+        page: page,
+        nameStartsWith: filter,
+      });
+      const json = await response.json();
+      return dispatch({
+        type: types.RECEIVE_ALL_CHARACTERS,
+        payload: json,
+      });
+    } catch (e) {
+      return dispatch({
+        type: types.ERROR,
+        errorMessage: `Sorry! There was a problem fetching the characters (${e})`,
+      });
+    }
   };
 }
 
+export const fetchAllCharactersDispatcher = () => ({
+  type: types.FETCH_ALL_CHARACTERS,
+  isLoading: true,
+});
+
 export function fetchCharacter(id) {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch({ type: types.FETCH_CHARACTER });
 
-    let localChar = localStorage.getItem(`${AppConstants.localCharacterStoragePrefix}${id}`);
-    if (localChar) {
-      const localContent = {
-        data: {
-          results: [JSON.parse(localChar)],
-        },
-      };
+    let localChar = localStorage.getItem(
+      `${AppConstants.localCharacterStoragePrefix}${id}`
+    );
+
+    try {
+      if (localChar) {
+        const localContent = {
+          data: {
+            results: [JSON.parse(localChar)],
+          },
+        };
+        return dispatch({
+          type: types.RECEIVE_CHARACTER,
+          character: localContent,
+        });
+      } else {
+        const response = await MarvelApi.getCharacterById(id);
+        const json = await response.json();
+        return dispatch({
+          type: types.RECEIVE_CHARACTER,
+          character: json,
+        });
+      }
+    } catch (e) {
       return dispatch({
-        type: types.RECEIVE_CHARACTER,
-        character: localContent,
+        type: types.ERROR,
+        errorMessage: `Sorry! There was a problem fetching the character (${e})`,
       });
-    } else {
-      return MarvelApi.getCharacterById(id)
-        .then((response) => response.json())
-        .then((json) =>
-          dispatch({
-            type: types.RECEIVE_CHARACTER,
-            character: json,
-          })
-        );
     }
   };
 }

@@ -10,6 +10,7 @@ import {
   RECEIVE_SERIES_BY_CHARACTER,
   SET_DIALOG_VISIBLE,
   RESET_CHARACTERS,
+  ERROR
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -18,6 +19,7 @@ const INITIAL_STATE = {
   hasMore: true,
   isLoading: false,
   dialogVisible: false,
+  warning: null,
   error: null,
 };
 
@@ -25,12 +27,19 @@ export default function reducer(state = INITIAL_STATE, action) {
   let newState;
 
   switch (action.type) {
+    case ERROR:
+      newState = {
+        ...state,
+        error: action.errorMessage,
+      };
+      return newState;
+
     case FETCH_ALL_CHARACTERS:
       newState = {
         ...state,
         isLoading: true,
         isChangingFilter: false,
-        error: null,
+        warning: null,
       };
       return newState;
 
@@ -48,7 +57,7 @@ export default function reducer(state = INITIAL_STATE, action) {
         hasMore: hasMore(action.payload.data),
         isLoading: false,
         isChangingFilter: false,
-        error:
+        warning:
           actionResults && actionResults.length === 0
             ? "No hero found! Try searching again..."
             : null,
@@ -73,11 +82,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         character: {
-          isLoadingSeries: true
+          isLoadingSeries: true,
         },
         isLoading: true,
         isChangingFilter: false,
-        error: null,
+        warning: null,
       };
 
     case RECEIVE_CHARACTER:
@@ -97,15 +106,15 @@ export default function reducer(state = INITIAL_STATE, action) {
         ...state,
         character: {
           ...state.character,
-          isLoadingSeries: true
-        }
+          isLoadingSeries: true,
+        },
       };
 
     case RECEIVE_SERIES_BY_CHARACTER:
       if (action.payload.code !== "200" && action.payload.code !== 200) {
         newState = {
           ...state,
-          error: `Sorry! There was an error retrieving the series (${action.payload.status})`,
+          warning: `Sorry! There was an error retrieving the series (${action.payload.status})`,
         };
         return newState;
       }
@@ -127,7 +136,7 @@ export default function reducer(state = INITIAL_STATE, action) {
           series: newSeries,
           hasMore: hasMore(action.payload.data),
           seriesPage: action.page,
-          isLoadingSeries: false
+          isLoadingSeries: false,
         },
         error: null,
       };

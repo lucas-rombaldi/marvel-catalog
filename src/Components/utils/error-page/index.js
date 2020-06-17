@@ -6,7 +6,7 @@ import FailLogo from "../../../img/thanos.png";
 import Constants from "./constants";
 import "./styles.scss";
 
-class ErrorScreen extends React.Component {
+class ErrorPage extends React.Component {
   render() {
     const { message } = this.props;
 
@@ -25,8 +25,8 @@ class ErrorScreen extends React.Component {
   }
 }
 
-ErrorScreen.propTypes = {
+ErrorPage.propTypes = {
   message: PropTypes.string,
 };
 
-export default ErrorScreen;
+export default ErrorPage;
