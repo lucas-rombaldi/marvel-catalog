@@ -44,6 +44,7 @@ export default function reducer(state = INITIAL_STATE, action) {
       return newState;
 
     case RECEIVE_ALL_CHARACTERS:
+      console.log('action.payload', action.payload);
       let actionResults = action.payload.data.results;
       if (state.characters && state.characters.some((x) => x)) {
         actionResults = state.characters.concat(actionResults);

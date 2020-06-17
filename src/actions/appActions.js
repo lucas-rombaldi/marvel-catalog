@@ -1,6 +1,21 @@
+/////
 import * as types from "./types";
 import MarvelApi from "../services/marvelApi";
 import AppConstants from "../components/utils/constants";
+
+export const fetchAllCharactersAction = () => ({
+  type: types.FETCH_ALL_CHARACTERS,
+});
+
+export const receiveAllCharactersAction = (json) => ({
+  type: types.RECEIVE_ALL_CHARACTERS,
+  payload: json,
+});
+
+export const errorAction = (message) => ({
+  type: types.ERROR,
+  errorMessage: message,
+});
 
 export function setFilter(filter) {
   return (dispatch) =>
@@ -21,7 +36,7 @@ export function setDialogVisible(visible) {
 
 export function fetchAllCharacters(page, filter) {
   return async (dispatch) => {
-    dispatch(fetchAllCharactersDispatcher());
+    dispatch(fetchAllCharactersAction());
 
     try {
       const response = await MarvelApi.getCharacters({
@@ -29,15 +44,11 @@ export function fetchAllCharacters(page, filter) {
         nameStartsWith: filter,
       });
       const json = await response.json();
-      return dispatch({
-        type: types.RECEIVE_ALL_CHARACTERS,
-        payload: json,
-      });
+      return dispatch(receiveAllCharactersAction(json));
     } catch (e) {
-      return dispatch({
-        type: types.ERROR,
-        errorMessage: `Sorry! There was a problem fetching the characters (${e})`,
-      });
+      return dispatch(
+        errorAction(`Sorry! There was a problem fetching the characters (${e})`)
+      );
     }
   };
 }
@@ -75,10 +86,9 @@ export function fetchCharacter(id) {
         });
       }
     } catch (e) {
-      return dispatch({
-        type: types.ERROR,
-        errorMessage: `Sorry! There was a problem fetching the character (${e})`,
-      });
+      return dispatch(
+        errorAction(`Sorry! There was a problem fetching the character (${e})`)
+      );
     }
   };
 }

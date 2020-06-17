@@ -1,32 +1,3 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Typography from "@material-ui/core/Typography";
+import ErrorPage from './error-page';
 
-import FailLogo from "../../../img/thanos.png";
-import Constants from "./constants";
-import "./styles.scss";
-
-class ErrorPage extends React.Component {
-  render() {
-    const { message } = this.props;
-
-    return (
-      <div className={`${Constants.class}__root`}>
-        <img
-          className={`${Constants.class}__image`}
-          src={FailLogo}
-          alt={message}
-        />
-        <Typography type="subheading" variant="h6" color="inherit">
-          {message}
-        </Typography>
-      </div>
-    );
-  }
-}
-
-ErrorPage.propTypes = {
-  message: PropTypes.string,
-};
-
-export default ErrorPage;
+export { ErrorPage as default }

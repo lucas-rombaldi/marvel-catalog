@@ -4,7 +4,6 @@ $class: "char-list";
 
 .#{$class} {
   &__loader {
-    margin-top: 20px;
     flex: 1 1 100%;
   }
 
@@ -14,7 +13,7 @@ $class: "char-list";
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding-bottom: 40px;
+    margin-bottom: 20px;
 
     &:focus {
       outline: 0;
