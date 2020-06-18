@@ -12,7 +12,7 @@ class CharacterCard extends React.Component {
     const image = `${character.thumbnail.path}/standard_fantastic.${this.props.character.thumbnail.extension}`;
 
     return (
-      <Link to={`/${character.id}`}>
+      <Link to={`/${character.id}`} data-testid="char-card">
         <div className={`${Constants.class}__root`}>
           <div className={`${Constants.class}__card`}>
             <div
