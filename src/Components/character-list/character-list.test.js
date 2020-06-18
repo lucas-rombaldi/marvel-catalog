@@ -2,8 +2,6 @@ import React from "react";
 import { Provider } from "react-redux";
 import {
   render,
-  queryByLabelText,
-  queryByTestId,
   fireEvent,
   cleanup,
 } from "@testing-library/react";
