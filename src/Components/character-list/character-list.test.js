@@ -7,8 +7,6 @@ import {
   fireEvent,
   cleanup,
 } from "@testing-library/react";
-import { unmountComponentAtNode } from "react-dom";
-//import { jest } from "@jest/globals";
 import "@testing-library/jest-dom/extend-expect";
 import * as appActions from "../../actions/appActions";
 import configureStore from "../../store/configureStore";
