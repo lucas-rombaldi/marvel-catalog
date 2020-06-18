@@ -48,7 +48,7 @@ test("should not render loader when fetching characters", () => {
   );
 
   mockStore.dispatch(
-    appActions.receiveAllCharactersAction(mockReceiveCharacterPayload)
+    appActions.receiveAllCharactersAction(createMockReceiveCharacterPayload())
   );
 
   const loadingImage = queryByLabelText("audio-loading");
