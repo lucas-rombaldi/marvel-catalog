@@ -1,49 +1,38 @@
 import React from "react";
 import { Provider } from "react-redux";
-import {
-  render,
-  fireEvent,
-  cleanup,
-} from "@testing-library/react";
+import { render, fireEvent, cleanup, wait } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import * as appActions from "../../actions/appActions";
 import configureStore from "../../store/configureStore";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { MemoryRouter } from "react-router-dom";
-import { createMemoryHistory } from "history";
-
 import CharacterList from "./character-list";
 
-let container = null;
-
-const mockStore = configureStore();
+const renderWithBasics = (component, store) => {
+  return {
+    ...render(
+      <Router>
+        <Provider store={store}>{component}</Provider>
+      </Router>
+    ),
+  };
+};
 
 test("should render loader when fetching characters", () => {
-  const { getByLabelText, getByTestId, queryByLabelText } = render(
-    <Router>
-      <Provider store={mockStore}>
-        <CharacterList />
-      </Provider>
-    </Router>
-  );
+  const store = configureStore();
+  const { queryByLabelText } = renderWithBasics(<CharacterList />, store);
 
-  mockStore.dispatch(appActions.fetchAllCharactersAction());
+  store.dispatch(appActions.fetchAllCharactersAction());
 
   const loadingImage = queryByLabelText("audio-loading");
   expect(loadingImage).toBeInTheDocument();
 });
 
 test("should not render loader when fetching characters", () => {
-  const { queryByLabelText } = render(
-    <Router>
-      <Provider store={mockStore}>
-        <CharacterList />
-      </Provider>
-    </Router>
-  );
+  const store = configureStore();
+  const { queryByLabelText } = renderWithBasics(<CharacterList />, store);
 
-  mockStore.dispatch(
+  store.dispatch(
     appActions.receiveAllCharactersAction(createMockReceiveCharacterPayload())
   );
 
@@ -52,73 +41,39 @@ test("should not render loader when fetching characters", () => {
 });
 
 test("should render cards as characters result", () => {
-  const { queryAllByTestId } = render(
-    <Router>
-      <Provider store={mockStore}>
-        <CharacterList />
-      </Provider>
-    </Router>
-  );
+  const store = configureStore();
+  const { queryAllByTestId } = renderWithBasics(<CharacterList />, store);
 
   const mockReceiveCharacters = createMockReceiveCharacterPayload();
   mockReceiveCharacters.data.results.push(mockNewCharacterPayload(10, "Test1"));
   mockReceiveCharacters.data.results.push(mockNewCharacterPayload(20, "Test2"));
 
-  mockStore.dispatch(
-    appActions.receiveAllCharactersAction(mockReceiveCharacters)
-  );
+  store.dispatch(appActions.receiveAllCharactersAction(mockReceiveCharacters));
 
   const cards = queryAllByTestId("char-card");
-
   expect(cards).toHaveLength(mockReceiveCharacters.data.results.length);
   expect(cards[0]).toHaveAttribute("href", "/10");
   expect(cards[1]).toHaveAttribute("href", "/20");
-});
 
-test("should direct to character details page", () => {
-  const history = createMemoryHistory();
-
-  const { queryByTestId, container } = render(
-    <Router>
-      <Provider store={mockStore}>
-        <MemoryRouter history={history}>
-          <CharacterList />
-        </MemoryRouter>
-      </Provider>
-    </Router>
-  );
-
-  const mockReceiveCharacters = createMockReceiveCharacterPayload();
-  mockReceiveCharacters.data.results.push(mockNewCharacterPayload(10, "Test1"));
-
-  mockStore.dispatch(
-    appActions.receiveAllCharactersAction(mockReceiveCharacters)
-  );
-
-  const card = queryByTestId("char-card");
-  fireEvent.click(card);
-
-  // spy on push calls, assert on url (parameter)
-
-    console.log('HTML', container.innerHTML);
-
-  expect(history.push).toHaveBeenCalledWith("/10");
+  const cardNames = queryAllByTestId("char-card-name");
+  expect(cardNames[0]).toHaveTextContent("Test1");
+  expect(cardNames[1]).toHaveTextContent("Test2");
 });
 
 test("should render error page when any error has occurred", () => {
-  mockStore.dispatch(appActions.fetchAllCharactersAction());
-  mockStore.dispatch(appActions.errorAction("Error test"));
+  const store = configureStore();
 
-  const { container, getByTestId, queryByTestId } = render(
-    <Router>
-      <Provider store={mockStore}>
-        <CharacterList />
-      </Provider>
-    </Router>
+  const { queryByTestId, getByText } = renderWithBasics(
+    <CharacterList />,
+    store
   );
+
+  store.dispatch(appActions.fetchAllCharactersAction());
+  store.dispatch(appActions.errorAction("Error test"));
 
   const errorPage = queryByTestId("error-page");
   expect(errorPage).toBeInTheDocument();
+  expect(getByText("Error test")).toBeInTheDocument();
 });
 
 const mockNewCharacterPayload = (id, name = "Hero") => ({

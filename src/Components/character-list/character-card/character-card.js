@@ -19,7 +19,12 @@ class CharacterCard extends React.Component {
               className={`${Constants.class}__image`}
               style={{ backgroundImage: `url(${image})` }}
             />
-            <div className={`${Constants.class}__title`}>{character.name}</div>
+            <div
+              className={`${Constants.class}__title`}
+              data-testid="char-card-name"
+            >
+              {character.name}
+            </div>
             <div
               className={classnames(
                 `${Constants.class}__card-units`,
