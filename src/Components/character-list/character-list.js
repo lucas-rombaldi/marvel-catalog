@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import InfiniteScroll from "react-infinite-scroller";
 
+import Steps from "./character-list.tour";
+import { TourHOC } from "../utils/tour-hoc/tour-hoc";
 import * as appActions from "../../actions/appActions";
 import CharacterCard from "./character-card";
 import Loader from "../utils/loader";
@@ -13,8 +15,10 @@ import "./styles.scss";
 
 class CharacterList extends React.Component {
   componentDidMount() {
-    this.props.appActions.enableToolbarFilter();
-    this.props.appActions.resetCharacters();
+    const { enableToolbarFilter, resetCharacters } = this.props.appActions;
+
+    enableToolbarFilter();
+    resetCharacters();
   }
 
   renderCharacters = () => {
@@ -95,4 +99,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CharacterList);
+export default TourHOC(
+  connect(mapStateToProps, mapDispatchToProps)(CharacterList),
+  Steps
+);

@@ -1,0 +1,2 @@
+export const INITIALIZE_TOUR = 'INITIALIZE_TOUR';
+export const CLOSE_TOUR = 'CLOSE_TOUR';

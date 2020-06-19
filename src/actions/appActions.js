@@ -1,4 +1,3 @@
-/////
 import * as types from "./types";
 import MarvelApi from "../services/marvelApi";
 import AppConstants from "../components/utils/constants";
