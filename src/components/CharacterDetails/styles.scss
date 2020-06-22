@@ -1,0 +1,61 @@
+@import "../shared/theme.scss";
+
+$class: "char-details";
+
+.#{$class} {
+  &__image {
+    border-radius: 50%;
+    margin: 10px;
+    width: 200px;
+
+    @media (min-width: 600px) {
+      margin: 20px;
+    }
+  }
+
+  &__profile {
+    display: block;
+    margin-bottom: 20px;
+    align-items: center;
+    background-color: $gray-3;
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2),
+      0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+  
+    @media (min-width: 600px) {
+      display: flex;
+    }
+  }
+
+  &__description {
+    text-align: center;
+    color: $gray-7;
+    padding: 5px 20px 10px;
+  
+    @media (min-width: 600px) {
+      text-align: left;
+      padding: 30px;
+    }
+  }
+
+  &__series {
+    &-root {
+      margin: 0px 10px 10px 10px;
+    }
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+
+      @media (min-width: 1024px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    &-title {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      color: rgb(134, 142, 150);
+    }
+  }
+}

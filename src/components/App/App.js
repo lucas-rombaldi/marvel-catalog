@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import CharacterList from "../character-list";
-import CharacterDetails from "../character-details";
-import TopBar from "../layout/top-bar";
+import CharacterList from "../CharacterList";
+import CharacterDetails from "../CharacterDetails";
+import TopBar from "../shared/layout/TopBar";
 import "./App.scss";
 
 function App() {

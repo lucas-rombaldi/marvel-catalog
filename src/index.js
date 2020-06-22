@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 import configureStore from './store/configureStore';
 import App from './components/App/App';
-import Theme from "./components/utils/theme/theme.scss";
+import Theme from "./components/shared/theme.scss";
 import './index.css';
 
 const store = configureStore();
