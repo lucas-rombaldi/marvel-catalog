@@ -11,6 +11,15 @@ export const receiveAllCharactersAction = (json) => ({
   payload: json,
 });
 
+export const fetchCharacterAction = () => ({
+  type: types.FETCH_CHARACTER,
+});
+
+export const receiveCharacterAction = (character) => ({
+  type: types.RECEIVE_CHARACTER,
+  character,
+});
+
 export const errorAction = (message) => ({
   type: types.ERROR,
   errorMessage: message,
@@ -52,14 +61,9 @@ export function fetchAllCharacters(page, filter) {
   };
 }
 
-export const fetchAllCharactersDispatcher = () => ({
-  type: types.FETCH_ALL_CHARACTERS,
-  isLoading: true,
-});
-
 export function fetchCharacter(id) {
   return async (dispatch) => {
-    dispatch({ type: types.FETCH_CHARACTER });
+    dispatch(fetchCharacterAction());
 
     let localChar = localStorage.getItem(
       `${AppConstants.localCharacterStoragePrefix}${id}`
@@ -72,17 +76,11 @@ export function fetchCharacter(id) {
             results: [JSON.parse(localChar)],
           },
         };
-        return dispatch({
-          type: types.RECEIVE_CHARACTER,
-          character: localContent,
-        });
+        return dispatch(receiveCharacterAction(localContent));
       } else {
         const response = await MarvelApi.getCharacterById(id);
         const json = await response.json();
-        return dispatch({
-          type: types.RECEIVE_CHARACTER,
-          character: json,
-        });
+        return dispatch(receiveCharacterAction(json));
       }
     } catch (e) {
       return dispatch(
@@ -92,11 +90,12 @@ export function fetchCharacter(id) {
   };
 }
 
+export const resetCharactersAction = () => ({
+  type: types.RESET_CHARACTERS,
+});
+
 export function resetCharacters() {
-  return (dispatch) =>
-    dispatch({
-      type: types.RESET_CHARACTERS,
-    });
+  return (dispatch) => dispatch(resetCharactersAction());
 }
 
 export function enableToolbarFilter() {
