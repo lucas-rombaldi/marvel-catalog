@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 
 import * as tourActions from "../../../store/actions/tourActions";
 
-export const TourHOC = (WrappedComponent, steps) => {
+export const TourHOC = (WrappedComponent, tour) => {
   class TourHOC extends Component {
     componentDidMount() {
       const { tourActions } = this.props;
@@ -25,7 +25,7 @@ export const TourHOC = (WrappedComponent, steps) => {
         <React.Fragment>
           {isTourOpen && (
             <Tour
-              steps={steps}
+              steps={tour.Steps}
               isOpen={isTourOpen}
               onRequestClose={this._onRequestClose}
             />

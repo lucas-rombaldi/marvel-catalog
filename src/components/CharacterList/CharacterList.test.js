@@ -1,26 +1,14 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { render, fireEvent, cleanup, wait } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import * as appActions from "../../store/actions/appActions";
 import configureStore from "../../store/configureStore";
-import { BrowserRouter as Router } from "react-router-dom";
+import { renderComponent } from "../../tests/test.utils";
 
 import CharacterList from "./CharacterList";
 
-const renderWithBasics = (component, store) => {
-  return {
-    ...render(
-      <Router>
-        <Provider store={store}>{component}</Provider>
-      </Router>
-    ),
-  };
-};
-
 test("should render loader when fetching characters", () => {
   const store = configureStore();
-  const { queryByLabelText } = renderWithBasics(<CharacterList />, store);
+  const { queryByLabelText } = renderComponent(<CharacterList />, store);
 
   store.dispatch(appActions.fetchAllCharactersAction());
 
@@ -30,7 +18,7 @@ test("should render loader when fetching characters", () => {
 
 test("should not render loader when fetching characters", () => {
   const store = configureStore();
-  const { queryByLabelText } = renderWithBasics(<CharacterList />, store);
+  const { queryByLabelText } = renderComponent(<CharacterList />, store);
 
   store.dispatch(
     appActions.receiveAllCharactersAction(createMockReceiveCharacterPayload())
@@ -42,7 +30,7 @@ test("should not render loader when fetching characters", () => {
 
 test("should render cards as characters result", () => {
   const store = configureStore();
-  const { queryAllByTestId } = renderWithBasics(<CharacterList />, store);
+  const { queryAllByTestId } = renderComponent(<CharacterList />, store);
 
   const mockReceiveCharacters = createMockReceiveCharacterPayload();
   mockReceiveCharacters.data.results.push(mockNewCharacterPayload(10, "Test1"));
@@ -63,7 +51,7 @@ test("should render cards as characters result", () => {
 test("should render error page when any error has occurred", () => {
   const store = configureStore();
 
-  const { queryByTestId, getByText } = renderWithBasics(
+  const { queryByTestId, getByText } = renderComponent(
     <CharacterList />,
     store
   );

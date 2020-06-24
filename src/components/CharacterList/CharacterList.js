@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import InfiniteScroll from "react-infinite-scroller";
 
-import Steps from "./CharacterList.tour";
+import Tour from "./CharacterList.tour";
 import { TourHOC } from "../shared/TourHOC/TourHOC";
 import * as appActions from "../../store/actions/appActions";
 import CharacterCard from "./CharacterCard";
@@ -101,5 +101,5 @@ function mapDispatchToProps(dispatch) {
 
 export default TourHOC(
   connect(mapStateToProps, mapDispatchToProps)(CharacterList),
-  Steps
+  Tour
 );

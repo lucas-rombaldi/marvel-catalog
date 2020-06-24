@@ -33,12 +33,14 @@ export function setFilter(filter) {
     });
 }
 
+export const setDialogVisibleAction = (visible) => ({
+  type: types.SET_DIALOG_VISIBLE,
+  visible,
+});
+
 export function setDialogVisible(visible) {
   return (dispatch) => {
-    return dispatch({
-      type: types.SET_DIALOG_VISIBLE,
-      visible: visible,
-    });
+    return dispatch(setDialogVisibleAction(visible));
   };
 }
 
@@ -113,19 +115,22 @@ export function disableToolbarFilter() {
   };
 }
 
+export const fetchSeriesByCharacterAction = () => ({
+  type: types.FETCH_SERIES_BY_CHARACTER,
+});
+
+export const receiveSeriesByCharacterAction = (json, page) => ({
+  type: types.RECEIVE_SERIES_BY_CHARACTER,
+  payload: json,
+  page,
+});
+
 export function fetchSeriesByCharacter(id, page) {
-  return (dispatch) => {
-    dispatch({
-      type: types.FETCH_SERIES_BY_CHARACTER,
-    });
-    return MarvelApi.fetchSeriesByCharacter(id, page)
-      .then((response) => response.json())
-      .then((json) =>
-        dispatch({
-          type: types.RECEIVE_SERIES_BY_CHARACTER,
-          payload: json,
-          page: page,
-        })
-      );
+  return async (dispatch) => {
+    dispatch(fetchSeriesByCharacterAction());
+
+    const response = await MarvelApi.fetchSeriesByCharacter(id, page);
+    const json = await response.json();
+    return dispatch(receiveSeriesByCharacterAction(json, page));
   };
 }

@@ -1,26 +1,31 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { render, fireEvent, cleanup, wait } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import * as appActions from "../../store/actions/appActions";
 import configureStore from "../../store/configureStore";
-import { BrowserRouter as Router } from "react-router-dom";
+import { renderComponent } from "../../tests/test.utils";
 
 import CharacterDetails from "./CharacterDetails";
+import { fireEvent, wait, waitFor } from "@testing-library/react";
 
-const renderWithBasics = (component, store) => {
-  return {
-    ...render(
-      <Router>
-        <Provider store={store}>{component}</Provider>
-      </Router>
-    ),
-  };
-};
+test("should render error page when any error has occurred", () => {
+  const store = configureStore();
+
+  const { queryByTestId, getByText } = renderComponent(
+    <CharacterDetails />,
+    store
+  );
+
+  store.dispatch(appActions.fetchCharacterAction());
+  store.dispatch(appActions.errorAction("Error test"));
+
+  const errorPage = queryByTestId("error-page");
+  expect(errorPage).toBeInTheDocument();
+  expect(getByText("Error test")).toBeInTheDocument();
+});
 
 test("should render loader while no character has been loaded", () => {
   const store = configureStore();
-  const { queryByLabelText } = renderWithBasics(<CharacterDetails />, store);
+  const { queryByLabelText } = renderComponent(<CharacterDetails />, store);
 
   const loadingImage = queryByLabelText("audio-loading");
   expect(loadingImage).toBeInTheDocument();
@@ -33,7 +38,7 @@ test("should render character when has been received and keep loading series", (
     queryAllByRole,
     queryByRole,
     queryByText,
-  } = renderWithBasics(<CharacterDetails />, store);
+  } = renderComponent(<CharacterDetails />, store);
 
   store.dispatch(
     appActions.receiveCharacterAction(
@@ -54,29 +59,41 @@ test("should render character when has been received and keep loading series", (
   expect(loadingImage).toBeInTheDocument();
 });
 
-test("should render error page when any error has occurred", () => {
-    const store = configureStore();
-  
-    const { queryByTestId, getByText } = renderWithBasics(
-      <CharacterDetails />,
-      store
-    );
-  
-    store.dispatch(appActions.fetchCharacterAction());
-    store.dispatch(appActions.errorAction("Error test"));
-  
-    const errorPage = queryByTestId("error-page");
-    expect(errorPage).toBeInTheDocument();
-    expect(getByText("Error test")).toBeInTheDocument();
-  });
+test("should render character series", () => {
+  const store = configureStore();
+  const { queryByLabelText, queryByText } = renderComponent(
+    <CharacterDetails />,
+    store
+  );
+
+  store.dispatch(
+    appActions.receiveCharacterAction(
+      mockCharacterPayload(123, "Hero", "Description test")
+    )
+  );
+
+  const seriesPayload = mockSeriesPayload();
+  seriesPayload.data.results.push(mockNewSeriePayload("Serie1"));
+  seriesPayload.data.results.push(mockNewSeriePayload("Serie2"));
+  seriesPayload.data.results.push(mockNewSeriePayload("Serie3"));
+
+  store.dispatch(appActions.receiveSeriesByCharacterAction(seriesPayload, 1));
+
+  expect(queryByText(/serie1/i)).toBeInTheDocument();
+  expect(queryByText(/serie2/i)).toBeInTheDocument();
+  expect(queryByText(/serie3/i)).toBeInTheDocument();
+
+  const loadingImage = queryByLabelText("audio-loading");
+  expect(loadingImage).toBeNull();
+});
 
 const mockCharacterPayload = (id, name, description) => ({
   code: 200,
   data: {
-    count: 10,
-    limit: 15,
+    count: 1,
+    limit: 1,
     offset: 0,
-    total: 10,
+    total: 1,
     results: [
       {
         loadingSeries: true,
@@ -90,5 +107,33 @@ const mockCharacterPayload = (id, name, description) => ({
         },
       },
     ],
+  },
+});
+
+const mockSeriesPayload = () => ({
+  code: 200,
+  data: {
+    count: 1,
+    limit: 1,
+    offset: 0,
+    total: 1,
+    results: [],
+  },
+});
+
+const mockNewSeriePayload = (title) => ({
+  id: Math.random(),
+  title,
+  description: "random description",
+  urls: [
+    {
+      type: "detail",
+      url:
+        "http://marvel.com/comics/series/13082/ant-man_the_wasp_2010_-_2011?utm_campaign=apiRef&utm_source=ebfed38e4e08f777f181a6c414f521eb",
+    },
+  ],
+  thumbnail: {
+    extension: "jpg",
+    path: "http://i.annihil.us/u/prod/marvel/i/mg/3/60/4c606835416be",
   },
 });

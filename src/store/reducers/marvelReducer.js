@@ -90,7 +90,6 @@ export default function reducer(state = INITIAL_STATE, action) {
       };
 
     case RECEIVE_CHARACTER:
-      console.log('action', action);
       newState = {
         ...state,
         character: action.character.data.results[0],
