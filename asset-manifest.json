@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c81acf2f.chunk.css",
+    "main.js": "/static/js/main.eb512fac.chunk.js",
+    "main.js.map": "/static/js/main.eb512fac.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.b2e2cb7c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.b2e2cb7c.js.map",
+    "static/js/2.345be5be.chunk.js": "/static/js/2.345be5be.chunk.js",
+    "static/js/2.345be5be.chunk.js.map": "/static/js/2.345be5be.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e238947c9b89eaf5daff1daf0fad89a6.js": "/precache-manifest.e238947c9b89eaf5daff1daf0fad89a6.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.c81acf2f.chunk.css.map": "/static/css/main.c81acf2f.chunk.css.map",
+    "static/js/2.345be5be.chunk.js.LICENSE.txt": "/static/js/2.345be5be.chunk.js.LICENSE.txt",
+    "static/media/marvel-logo.png": "/static/media/marvel-logo.44b2fa2f.png",
+    "static/media/thanos.png": "/static/media/thanos.972da349.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b2e2cb7c.js",
+    "static/js/2.345be5be.chunk.js",
+    "static/css/main.c81acf2f.chunk.css",
+    "static/js/main.eb512fac.chunk.js"
+  ]
+}
