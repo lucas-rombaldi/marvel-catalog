@@ -40,7 +40,7 @@ class TopBar extends React.Component {
     if (!enableFilter) return null;
 
     return (
-      <div className={`${Constants.class}__search`}>
+      <div className={`${Constants.class}__search`} data-testid="search-container">
         <div className={`${Constants.class}__search--image`}>
           <SearchIcon />
         </div>

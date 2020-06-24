@@ -100,19 +100,20 @@ export function resetCharacters() {
   return (dispatch) => dispatch(resetCharactersAction());
 }
 
+export const enableToolbarFilterAction = () => ({
+  type: types.ENABLE_FILTER,
+});
+
 export function enableToolbarFilter() {
-  return (dispatch) =>
-    dispatch({
-      type: types.ENABLE_FILTER,
-    });
+  return (dispatch) => dispatch(enableToolbarFilterAction());
 }
 
+export const disableToolbarFilterAction = () => ({
+  type: types.DISABLE_FILTER,
+});
+
 export function disableToolbarFilter() {
-  return (dispatch) => {
-    return dispatch({
-      type: types.DISABLE_FILTER,
-    });
-  };
+  return (dispatch) => dispatch(disableToolbarFilterAction());
 }
 
 export const fetchSeriesByCharacterAction = () => ({
