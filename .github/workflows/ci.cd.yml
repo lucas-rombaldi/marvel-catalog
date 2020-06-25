@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI-CD
 
 on:
   push:
@@ -29,5 +29,6 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REACT_APP_MARVEL_API_PRIVATE_KEY: ${{ secrets.REACT_APP_MARVEL_API_PRIVATE_KEY }}
+          REACT_APP_MARVEL_API_PUBLIC_KEY: ${{ secrets.REACT_APP_MARVEL_API_PUBLIC_KEY }}
           BRANCH: gh-pages
           FOLDER: build
