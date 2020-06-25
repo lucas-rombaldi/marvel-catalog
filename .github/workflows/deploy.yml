@@ -22,6 +22,7 @@ jobs:
           yarn test
 
       - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REACT_APP_MARVEL_API_PRIVATE_KEY: ${{ secrets.REACT_APP_MARVEL_API_PRIVATE_KEY }}
