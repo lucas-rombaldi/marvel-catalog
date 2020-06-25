@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/marvel-catalog/static/css/main.c81acf2f.chunk.css",
-    "main.js": "/marvel-catalog/static/js/main.3d52c2e4.chunk.js",
-    "main.js.map": "/marvel-catalog/static/js/main.3d52c2e4.chunk.js.map",
+    "main.js": "/marvel-catalog/static/js/main.cade9bcb.chunk.js",
+    "main.js.map": "/marvel-catalog/static/js/main.cade9bcb.chunk.js.map",
     "runtime-main.js": "/marvel-catalog/static/js/runtime-main.77b01fb2.js",
     "runtime-main.js.map": "/marvel-catalog/static/js/runtime-main.77b01fb2.js.map",
-    "static/js/2.db022bb4.chunk.js": "/marvel-catalog/static/js/2.db022bb4.chunk.js",
-    "static/js/2.db022bb4.chunk.js.map": "/marvel-catalog/static/js/2.db022bb4.chunk.js.map",
+    "static/js/2.f73ef930.chunk.js": "/marvel-catalog/static/js/2.f73ef930.chunk.js",
+    "static/js/2.f73ef930.chunk.js.map": "/marvel-catalog/static/js/2.f73ef930.chunk.js.map",
     "index.html": "/marvel-catalog/index.html",
-    "precache-manifest.dc8893b499db0e28a60354d45bebe9c7.js": "/marvel-catalog/precache-manifest.dc8893b499db0e28a60354d45bebe9c7.js",
+    "precache-manifest.39773e64c7c0443a40de95bc3c10df53.js": "/marvel-catalog/precache-manifest.39773e64c7c0443a40de95bc3c10df53.js",
     "service-worker.js": "/marvel-catalog/service-worker.js",
     "static/css/main.c81acf2f.chunk.css.map": "/marvel-catalog/static/css/main.c81acf2f.chunk.css.map",
-    "static/js/2.db022bb4.chunk.js.LICENSE.txt": "/marvel-catalog/static/js/2.db022bb4.chunk.js.LICENSE.txt",
+    "static/js/2.f73ef930.chunk.js.LICENSE.txt": "/marvel-catalog/static/js/2.f73ef930.chunk.js.LICENSE.txt",
     "static/media/marvel-logo.png": "/marvel-catalog/static/media/marvel-logo.44b2fa2f.png",
     "static/media/thanos.png": "/marvel-catalog/static/media/thanos.972da349.png"
   },
   "entrypoints": [
     "static/js/runtime-main.77b01fb2.js",
-    "static/js/2.db022bb4.chunk.js",
+    "static/js/2.f73ef930.chunk.js",
     "static/css/main.c81acf2f.chunk.css",
-    "static/js/main.3d52c2e4.chunk.js"
+    "static/js/main.cade9bcb.chunk.js"
   ]
 }
