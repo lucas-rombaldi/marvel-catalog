@@ -15,20 +15,19 @@ jobs:
         with:
           persist-credentials: false 
 
-      - name: Test 
-        run: |
-          yarn test
-
       - name: Install and Build
         run: |
           yarn install
           yarn build
+
+      - name: Test 
+        run: |
+          yarn test
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REACT_APP_MARVEL_API_PRIVATE_KEY: ${{ secrets.REACT_APP_MARVEL_API_PRIVATE_KEY }}
-          REACT_APP_MARVEL_API_PUBLIC_KEY: ${{ secrets.REACT_APP_MARVEL_API_PUBLIC_KEY }}
           BRANCH: gh-pages
           FOLDER: build
