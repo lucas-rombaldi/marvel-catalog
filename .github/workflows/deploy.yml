@@ -29,3 +29,12 @@ jobs:
           REACT_APP_MARVEL_API_PUBLIC_KEY: ${{ secrets.REACT_APP_MARVEL_API_PUBLIC_KEY }}
           BRANCH: gh-pages
           FOLDER: build
+
+      - name: Rollback Release
+        if: failure() && steps.create_release.outputs.id != ''
+        uses: author/action-rollback@stable
+        with:
+          id: ${{ steps.create_release.id }}
+          tag: ${{ steps.autotagger.outputs.tagname }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
