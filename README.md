@@ -9,7 +9,7 @@ This is a catalog application made for all Marvel fans, made in React with Redux
 ## Release Notes
 
 ### 1.1.0
-- Reactour implementation through a High Order Component (TourHOC).
+- [Reactour](https://reactour.js.org/) implementation through a High Order Component (TourHOC).
 
 ### 1.0.0
 This is the first version of the catalog, bringing the following features:
