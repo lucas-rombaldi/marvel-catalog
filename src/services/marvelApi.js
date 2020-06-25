@@ -31,7 +31,7 @@ export default class MarvelApi {
     const URI = `/v1/public/characters/${characterId}/series`;
     const params = `${this.getBaseParams()}&limit=${count}&offset=${currentOffset}`;
     const url = `${config.baseUrl}${URI}${params}`;
-    
+
     return fetch(url);
   }
 
@@ -43,10 +43,12 @@ export default class MarvelApi {
 
   static getBaseParams() {
     const timeStamp = moment().unix();
-    const hash = CryptoJS.MD5(
-      timeStamp + config.privateKey + config.publicKey
-    ).toString(CryptoJS.enc.Hex);
+    const publicKey = process.env.REACT_APP_MARVEL_API_PUBLIC_KEY;
+    const privateKey = process.env.REACT_APP_MARVEL_API_PRIVATE_KEY;
+    const hash = CryptoJS.MD5(timeStamp + privateKey + publicKey).toString(
+      CryptoJS.enc.Hex
+    );
 
-    return `?apikey=${config.publicKey}&ts=${timeStamp}&hash=${hash}`;
+    return `?apikey=${publicKey}&ts=${timeStamp}&hash=${hash}`;
   }
 }

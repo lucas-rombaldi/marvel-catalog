@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 
 import CharacterList from "../CharacterList";
 import CharacterDetails from "../CharacterDetails";
@@ -11,12 +11,12 @@ function App() {
     <div className="App">
       <TopBar />
       <div className="App-content">
-        <BrowserRouter>
+        <HashRouter basename='/'>
           <Switch>
             <Route path="/" exact component={CharacterList} />
             <Route path="/:id" component={CharacterDetails} />
           </Switch>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </div>
   );
