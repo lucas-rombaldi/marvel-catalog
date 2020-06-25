@@ -20,7 +20,7 @@ test("should render error page when any error has occurred", () => {
 
   const errorPage = queryByTestId("error-page");
   expect(errorPage).toBeInTheDocument();
-  expect(getByText("Error test")).toBeInTheDocument();
+  expect(getByText("Error test2")).toBeInTheDocument();
 });
 
 test("should render loader while no character has been loaded", () => {
