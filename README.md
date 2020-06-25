@@ -4,11 +4,12 @@
 
 This is a catalog application made for all Marvel fans, made in React with Redux, this app brings to you all of the Marvel characters, along with many nice information, like series, comics, among others! Enjoy and contribute!
 
-## CI/CD
-
 ![CI-CD](https://github.com/lucas-rombaldi/marvel-catalog/workflows/CI-CD/badge.svg)
 
 ## Release Notes
+
+### 1.1.0
+- Reactour implementation through a High Order Component (TourHOC).
 
 ### 1.0.0
 This is the first version of the catalog, bringing the following features:
