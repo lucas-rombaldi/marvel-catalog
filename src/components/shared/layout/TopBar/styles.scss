@@ -17,6 +17,7 @@ $class: "topbar";
   &__title {
     flex-grow: 1;
     display: none;
+    text-align: left;
 
     @media (min-width: 600px) {
       display: block;
