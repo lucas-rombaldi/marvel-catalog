@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-deploy:
+  ci-cd:
     runs-on: ubuntu-latest    
     steps:
       - name: Checkout
