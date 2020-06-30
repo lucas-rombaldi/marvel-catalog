@@ -3,6 +3,7 @@ import Tour from "reactour";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import Theme from "../theme.scss";
 
 import * as tourActions from "../../../store/actions/tourActions";
 
@@ -28,6 +29,8 @@ export const TourHOC = (WrappedComponent, tour) => {
               steps={tour.Steps}
               isOpen={isTourOpen}
               onRequestClose={this._onRequestClose}
+              accentColor={Theme.primaryColor}
+              rounded={5}
             />
           )}
           <WrappedComponent {...this.props} />
