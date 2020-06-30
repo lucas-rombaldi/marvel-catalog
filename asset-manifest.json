@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/marvel-catalog/static/css/main.81166e15.chunk.css",
-    "main.js": "/marvel-catalog/static/js/main.846e272a.chunk.js",
-    "main.js.map": "/marvel-catalog/static/js/main.846e272a.chunk.js.map",
+    "main.css": "/marvel-catalog/static/css/main.bbd76691.chunk.css",
+    "main.js": "/marvel-catalog/static/js/main.8db7d188.chunk.js",
+    "main.js.map": "/marvel-catalog/static/js/main.8db7d188.chunk.js.map",
     "runtime-main.js": "/marvel-catalog/static/js/runtime-main.77b01fb2.js",
     "runtime-main.js.map": "/marvel-catalog/static/js/runtime-main.77b01fb2.js.map",
-    "static/js/2.cb60315d.chunk.js": "/marvel-catalog/static/js/2.cb60315d.chunk.js",
-    "static/js/2.cb60315d.chunk.js.map": "/marvel-catalog/static/js/2.cb60315d.chunk.js.map",
+    "static/js/2.b6f80fc7.chunk.js": "/marvel-catalog/static/js/2.b6f80fc7.chunk.js",
+    "static/js/2.b6f80fc7.chunk.js.map": "/marvel-catalog/static/js/2.b6f80fc7.chunk.js.map",
     "index.html": "/marvel-catalog/index.html",
-    "precache-manifest.2e0c6d9f8b1a2e42cdc1b38cbcc5ee6b.js": "/marvel-catalog/precache-manifest.2e0c6d9f8b1a2e42cdc1b38cbcc5ee6b.js",
+    "precache-manifest.25a6a1c97e287610d944748a4959c5e8.js": "/marvel-catalog/precache-manifest.25a6a1c97e287610d944748a4959c5e8.js",
     "service-worker.js": "/marvel-catalog/service-worker.js",
-    "static/css/main.81166e15.chunk.css.map": "/marvel-catalog/static/css/main.81166e15.chunk.css.map",
-    "static/js/2.cb60315d.chunk.js.LICENSE.txt": "/marvel-catalog/static/js/2.cb60315d.chunk.js.LICENSE.txt",
+    "static/css/main.bbd76691.chunk.css.map": "/marvel-catalog/static/css/main.bbd76691.chunk.css.map",
+    "static/js/2.b6f80fc7.chunk.js.LICENSE.txt": "/marvel-catalog/static/js/2.b6f80fc7.chunk.js.LICENSE.txt",
     "static/media/marvel-logo.png": "/marvel-catalog/static/media/marvel-logo.44b2fa2f.png",
     "static/media/thanos.png": "/marvel-catalog/static/media/thanos.972da349.png"
   },
   "entrypoints": [
     "static/js/runtime-main.77b01fb2.js",
-    "static/js/2.cb60315d.chunk.js",
-    "static/css/main.81166e15.chunk.css",
-    "static/js/main.846e272a.chunk.js"
+    "static/js/2.b6f80fc7.chunk.js",
+    "static/css/main.bbd76691.chunk.css",
+    "static/js/main.8db7d188.chunk.js"
   ]
 }
